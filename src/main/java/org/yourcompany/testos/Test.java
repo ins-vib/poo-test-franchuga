@@ -3,7 +3,7 @@ package org.yourcompany.testos;
 import java.util.ArrayList;
 
 public class Test {
-    private ArrayList preguntes = new ArrayList<Pregunta>();
+    private ArrayList<Pregunta> preguntes = new ArrayList<>();
     private int[] resposta_usu;
     private int numPregunta = 0;
 
@@ -11,10 +11,50 @@ public class Test {
 
     }
 
-    
-
     public String getEnunciatPreguntaActual(){
-        return preguntes.get(numPregunta);
+        String enunciat = preguntes.get(numPregunta).getEnunciat();
+        return enunciat;
+    }
+
+    public String[] getRespostesPreguntaActual(){
+        String[] respostes = preguntes.get(numPregunta).getRespostes();
+        return respostes;
+    }
+
+    public int getNumeroPregunta(){
+        return numPregunta;
+    }
+
+    public void respondre(int resposta){
+        resposta_usu[numPregunta] = resposta - 1;
+    }
+
+    public boolean anarEndevant(){
+        if(numPregunta == preguntes.size() - 1){
+            return false;
+        }
+        numPregunta++;
+        return true;
+    }
+
+    public boolean anarEndarrera(){
+        if(numPregunta == 0){
+            return false;
+        }
+        numPregunta--;
+        return true;
+    }
+
+    public double solucionarTest(){
+        int respostesCorrectes = 0;
+        for(int i = 0; i < preguntes.size(); i++){
+            Pregunta preguntacomparar = preguntes.get(i);
+            if(preguntacomparar.getCorrecta() == resposta_usu[i]){
+                respostesCorrectes++;
+            }
+        }
+        double valorPregunta = 10 / preguntes.size();
+        return valorPregunta * respostesCorrectes;
     }
 
     public ArrayList getPreguntes() {
