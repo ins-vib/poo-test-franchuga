@@ -8,7 +8,8 @@ public class Test {
     private int numPregunta = 0;
 
     public Test(ArrayList<Pregunta> preguntes){
-
+        this.preguntes = preguntes;
+        this.resposta_usu = new int[preguntes.size()];
     }
 
     public String getEnunciatPreguntaActual(){
@@ -22,7 +23,7 @@ public class Test {
     }
 
     public int getNumeroPregunta(){
-        return numPregunta;
+        return numPregunta + 1;
     }
 
     public void respondre(int resposta){
@@ -53,7 +54,7 @@ public class Test {
                 respostesCorrectes++;
             }
         }
-        double valorPregunta = 10 / preguntes.size();
+        double valorPregunta = 10.0 / preguntes.size();
         return valorPregunta * respostesCorrectes;
     }
 

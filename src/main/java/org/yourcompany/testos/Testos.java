@@ -5,6 +5,7 @@
 package org.yourcompany.testos;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -12,21 +13,56 @@ import java.util.ArrayList;
  */
 public class Testos {
 
-    public static void main(String[] args) {
+public static void main(String[] args) {
         // Crear l'ArrayList de preguntes
         ArrayList<Pregunta> preguntes = inicialitzarPreguntes();
         
         // Crear el test passant l'ArrayList
         Test test = new Test(preguntes);
-
+        Scanner teclat = new Scanner(System.in);
 
         // 
         // Mentre l'usuari no tria Finalitzar , es pot anar endavant, endarrera, respondre
         // Quan finalitza el test es mostra la seva puntució
-        
-    }
 
-    public static ArrayList<Pregunta> inicialitzarPreguntes() {
+        boolean sortir = false;
+        while(!sortir){
+                System.out.println("Pregunta num: "+test.getNumPregunta());
+                        System.out.println(test.getEnunciatPreguntaActual());
+                        test.getRespostesPreguntaActual();
+                String[] opciones = test.getRespostesPreguntaActual();
+                for(int i = 0; i < opciones.length; i++){
+                        System.out.println(" " + (i + 1) + ". " + opciones[i]);
+                }
+                System.out.println("Que vols fer?");
+                System.out.println("1.Anar endarrera");
+                System.out.println("2.Anar endevant");
+                System.out.println("3.Respondre");
+                System.out.println("4.Sortir");
+                int opcio = teclat.nextInt();
+                switch(opcio){
+                        case 1: 
+                                test.anarEndarrera();
+                                break;
+                        case 2:
+                                test.anarEndevant();
+                                break;
+                        case 3: 
+                                
+                                System.out.println("Digues la resposta que creus");
+                                int resp = teclat.nextInt();
+                                test.respondre(resp);
+                                break;
+                        case 4:
+                                sortir = true;
+                                break;
+                }
+        }
+        System.out.println("La teva puntuació total ha sigut de: " + test.solucionarTest());
+        
+        }
+
+        public static ArrayList<Pregunta> inicialitzarPreguntes() {
         ArrayList<Pregunta> preguntes = new ArrayList<>();
         
         preguntes.add(new Pregunta("Qui va pintar el Guernica",
@@ -51,7 +87,7 @@ public class Testos {
                 new String[]{"Georgetown", "New York", "Washington"}, 2));
         
         return preguntes;
-    }
+        }
 
     // Altres mètodes que consideris necessaris...
 }
